@@ -936,7 +936,11 @@ class Column
     {
         if (is_array($item)) {
             array_walk_recursive($item, function (&$value) {
-                $value = htmlentities($value);
+                if(is_object($value)) {
+                    $value = get_class($value);
+                } else {
+                    $value = htmlentities($value);
+                }
             });
         } else {
             $item = htmlentities($item);
